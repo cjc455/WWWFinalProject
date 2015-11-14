@@ -21,8 +21,7 @@ https://machinimasound.com/music/mood/epic/
     }
     #scroll_objects > div{
       position: absolute;
-      font-size: 50;
-      font-family: Arial;
+
     }
     #box1{
       background-color: red;
@@ -36,9 +35,18 @@ https://machinimasound.com/music/mood/epic/
     }
     .text1, .text2, .text3, .text5 {
       color: white;
+      font-size: 50;
+      font-family: Arial;
     }
     .text4{
       color: red;
+      font-size: 50;
+      font-family: Arial;
+    }
+    .text5 {
+      color: white;
+      font-size: 60px;
+      font-family: "Georgia";
     }
     #navbar {
       width: 100%;
@@ -142,7 +150,7 @@ https://machinimasound.com/music/mood/epic/
     new_text_object("text1", "One man . . .", -600, 100, 40);
     add_text_move("text1", "One man . . .", 0, 200, 4, 2, 10);
     add_text_move("text1", "One man . . .", 350, 550, 0, -10, 0);
-    new_text_object("text2", "One planet . . .", -600, 100, 40);
+    new_text_object("text2", "One planet . . .", -610, 100, 40);
     add_text_move("text2", "One planet . . .", 450, 650, 4, 2, 10);
     add_text_move("text2", "One planet . . .", 900, 1000, 0, -10, 0);
     new_text_object("text3", "One", -600, 100, 40);
@@ -153,7 +161,7 @@ https://machinimasound.com/music/mood/epic/
     add_text_move("text4", "Trillion Dinosaurs", 1350, 1550, 4, 2, 10);
     add_text_move("text4", "Trillion Dinosaurs", 1800, 2000, 0, -10, 0);
     new_text_object("text5", "Justin vs. Dinosaurs", -1000, 100, 50);
-    add_text_move("text5", "Justin vs. Dinosaurs", 2000, 2100, 10, 0, 20);
+    add_text_move("text5", "Justin vs. Dinosaurs", 2000, 2001, 1000, 0, 0);
     add_text_move("text5", "Justin vs. Dinosaurs", 3000, 3200, -10, 0, 15);
     add_sound("bolt.mp3", 2000);
   //  add_text_move(scroll_object_name, text, startY, endY, scrollX, scrollY, wait)
@@ -211,7 +219,7 @@ https://machinimasound.com/music/mood/epic/
   }
   </script>
 
-</style>
+
 
 </head>
 
