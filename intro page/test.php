@@ -14,14 +14,14 @@ http://footagecrate.com/fire.html
 <html>
 
 <head>
-<title>Scroll Quest</title>
+<title>Epic Adventure</title>
 
   <style>
   #calmDown{
     background-color:black;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: .4;
 
   }
 
@@ -196,6 +196,8 @@ http://footagecrate.com/fire.html
     add_text_move("text5", "Justin",    2000, 2001, 1050, 0, 0);
     add_text_move("text6", "Vs.",       2150, 2151, 1150, 100, 0);
     add_text_move("text7", "Dinosaurs", 2300, 2301, 1250, 200, 0);
+
+
 
     add_sound("epic_music.mp3", 1, .2);
     add_sound("bolt.mp3", 2000, 1);
