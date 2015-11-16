@@ -1,10 +1,14 @@
 
 <!--
-bolt:
+bolt/roar:
 http://www.freesfx.co.uk/rx2/mp3s/1/941_1245800589.mp3
 
 music
 https://machinimasound.com/music/mood/epic/
+
+
+fire:
+http://footagecrate.com/fire.html
 -->
 
 <html>
@@ -13,6 +17,29 @@ https://machinimasound.com/music/mood/epic/
 <title>Scroll Quest</title>
 
   <style>
+  #calmDown{
+    background-color:black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+
+  }
+
+  #background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(polina.jpg) no-repeat;
+    background-size: cover;
+}
+
     body {
       margin: 0px;
       background-color: black;
@@ -21,8 +48,7 @@ https://machinimasound.com/music/mood/epic/
     }
     #scroll_objects > div{
       position: absolute;
-      font-size: 50;
-      font-family: Arial;
+
     }
     #box1{
       background-color: red;
@@ -34,11 +60,20 @@ https://machinimasound.com/music/mood/epic/
       width: 50px;
       height: 200px;
     }
-    .text1, .text2, .text3, .text5 {
+    .text1, .text2, .text3, .text5,.text6, .text7 {
       color: white;
+      font-size: 50;
+      font-family: Arial;
     }
     .text4{
       color: red;
+      font-size: 50;
+      font-family: Arial;
+    }
+    .text5, .text6, .text7 {
+      color: white;
+      font-size: 60px;
+      font-family: "Georgia";
     }
     #navbar {
       width: 100%;
@@ -107,6 +142,7 @@ https://machinimasound.com/music/mood/epic/
       if(sounds[i].ready == true && sounds[i].play_y <= scroll)
       {
         var audio = new Audio(sounds[i].file_name);
+        audio.volume = sounds[i].vol;
         audio.play();
         sounds[i].ready = false;
       }
@@ -142,7 +178,7 @@ https://machinimasound.com/music/mood/epic/
     new_text_object("text1", "One man . . .", -600, 100, 40);
     add_text_move("text1", "One man . . .", 0, 200, 4, 2, 10);
     add_text_move("text1", "One man . . .", 350, 550, 0, -10, 0);
-    new_text_object("text2", "One planet . . .", -600, 100, 40);
+    new_text_object("text2", "One planet . . .", -610, 100, 40);
     add_text_move("text2", "One planet . . .", 450, 650, 4, 2, 10);
     add_text_move("text2", "One planet . . .", 900, 1000, 0, -10, 0);
     new_text_object("text3", "One", -600, 100, 40);
@@ -152,20 +188,31 @@ https://machinimasound.com/music/mood/epic/
     new_text_object("text4", "Trillion Dinosaurs", -800, 100, 40);
     add_text_move("text4", "Trillion Dinosaurs", 1350, 1550, 4, 2, 10);
     add_text_move("text4", "Trillion Dinosaurs", 1800, 2000, 0, -10, 0);
-    new_text_object("text5", "Justin vs. Dinosaurs", -1000, 100, 50);
-    add_text_move("text5", "Justin vs. Dinosaurs", 2000, 2100, 10, 0, 20);
-    add_text_move("text5", "Justin vs. Dinosaurs", 3000, 3200, -10, 0, 15);
-    add_sound("bolt.mp3", 2000);
+
+    new_text_object("text5", "Justin", -1000, 100, 50);
+    new_text_object("text6", "Vs.", -1000, 100, 50);
+    new_text_object("text7", "Dinosaurs", -1000, 100, 50);
+
+    add_text_move("text5", "Justin",    2000, 2001, 1050, 0, 0);
+    add_text_move("text6", "Vs.",       2150, 2151, 1150, 100, 0);
+    add_text_move("text7", "Dinosaurs", 2300, 2301, 1250, 200, 0);
+
+    add_sound("epic_music.mp3", 1, .2);
+    add_sound("bolt.mp3", 2000, 1);
+    add_sound("bolt.mp3", 2150, 1);
+    add_sound("bolt.mp3", 2300, 1);
+
+
   //  add_text_move(scroll_object_name, text, startY, endY, scrollX, scrollY, wait)
-    add_move("box1", 0, 100, 5, 0);
-    add_move("box1", 0, 100, 5, 0);
+
   }
-  function add_sound(file_name_, play_y_)
+  function add_sound(file_name_, play_y_, vol_)
   {
     sounds.push(
       {
           file_name: file_name_,
           play_y: play_y_,
+          vol: vol_,
           ready: false
       }
     );
@@ -211,19 +258,26 @@ https://machinimasound.com/music/mood/epic/
   }
   </script>
 
-</style>
+
 
 </head>
 
 
 <body>
 
-  <audio controls autoplay style="display:none">
+  <!--audio controls autoplay style="display:none">
 
    <source src="epic_music.mp3" type="audio/mpeg">
- Your browser does not support the audio element.
- </audio>
 
+ Your browser does not support the audio element.
+ </audio-->
+
+
+  <div id="calmDown">
+    <video autoplay loop muted poster="" id="background">
+      <source src="e3.mp4" type="video/mp4">
+   </video>
+ </div>
   <div id="scroll_objects">
 
 
