@@ -25,13 +25,23 @@ input{
 	display: inline;
 }
 
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 700px;
+}
+
 #button{
 	background-color: #F2F2F2;
 	display: inline;
 	color: #222222;
-	margin-left: 30px;
 	padding: 10px;
 	cursor: default;
+	margin: 30px;
+	border-radius: 5px;
 }
 
 #button:hover{
@@ -39,6 +49,7 @@ input{
 }
 
 #playerList{
+	padding-top: 50px;
 	width: 200px;
 	margin: 0 auto;
 }
@@ -49,9 +60,9 @@ input{
 	font-size: 120%;
 }
 
-button{
-	margin: 30px;
-	padding: 10px;
-	background-color: #F2F2F2;
-	border: 5px;
+#status{
+	text-align: center;
+	color: #222222;
+	width: 600px;
+	margin: 0 auto;
 }

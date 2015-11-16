@@ -7,14 +7,22 @@ var RIGHT = 2;
 var DOWN = 3;
 var LEFT = 4;
 var NONE = 5;
+var ticks = 0;
+var waves = 1;
 
 function draw(){
 	if(game){
+		if(ticks == 300){
+			ticks = 0;
+			waves++;
+			game.createBadGuys(waves * 5);
+		}
 		game.updateBadGuys();
 		game.updateGoodGuys();
 		game.updateBullets();
 		game.checkDeath();
 		
+		ticks++;
 		socket.emit('frame', game);
 	}
 }
@@ -36,17 +44,34 @@ function Game(){
 	this.bullets = [];
 	
 	for(var i=0; i<10; i++){
-		this.badGuys.push(new Person(null, null));
+		this.badGuys.push(new Person(null, null, null, null, null));
+	}
+}
+
+Game.prototype.createBadGuys = function(num){
+	for(var i=0; i<num; i++){
+		this.badGuys.push(new Person(null, null, null, null, null));
 	}
 }
 
 Game.prototype.checkDeath = function(){
 	var len1 = this.badGuys.length;
-	var len2 = this.goodGuys.length;
 	for(var i=0; i<len1; i++){
-		for(var j = 0; j<len2; j++){
-			if(Math.abs(this.badGuys[i].x - this.goodGuys[j].x) < 25 && Math.abs(this.badGuys[i].y - this.goodGuys[j].y) < 25)
+		for(var j = 0; j< this.goodGuys.length; j++){
+			if(this.goodGuys[j].alive == true && Math.abs(this.badGuys[i].x - this.goodGuys[j].x) < 15 && Math.abs(this.badGuys[i].y - this.goodGuys[j].y) < 15){
+				this.goodGuys[j].alive = false;
+			}
+		}
+	}
+	
+	for(var i=0; i<this.goodGuys.length; i++){
+		if(this.goodGuys[i].alive == true)
+			break;
+		else{
+			if(i == this.goodGuys.length-1){
 				noLoop();
+				socket.emit('gameOver', waves*10 + ticks/30);
+			}
 		}
 	}
 }
@@ -56,13 +81,15 @@ function drawGame(game){
 	var i = 0;
 	for(i=0; i<len; i++){
 		fill('#FF3B3B');
-		ellipse(game.badGuys[i].x, game.badGuys[i].y, 20, 20);
+		ellipse(game.badGuys[i].x, game.badGuys[i].y, 15, 15);
 	}
 	
 	len = game.goodGuys.length;
 	for(i=0; i<len; i++){
-		fill(game.goodGuys[i].color);
-		ellipse(game.goodGuys[i].x, game.goodGuys[i].y, 50, 50);
+		if(game.goodGuys[i].alive == true){
+			fill(game.goodGuys[i].color);
+			ellipse(game.goodGuys[i].x, game.goodGuys[i].y, 30, 30);
+		}
 	}
 	
 	len = game.bullets.length;
@@ -114,23 +141,31 @@ function Person(name, color, x, y, id){
 	this.id = id;
 	this.name = name;
 	this.color = color;
+	this.alive = true;
 	
-	var rand1 = Math.random();
-	var rand2 = Math.random();
+	var rand = Math.random()
 	
-	if(!x && rand1 < .5)
-		this.x = Math.random() * canvasWidth * .4;
-	else if(!x)
-		this.x = canvasWidth - Math.random() * canvasWidth * .4;
-	else
+	if(x)
 		this.x = x;
+	else{
+		if(rand > .75)
+			this.x = 0;
+		else if(rand > .5)
+			this.x = canvasWidth;
+		else
+			this.x = canvasWidth * Math.random();
+	}
 	
-	if(!y && rand2 < .5)
-		this.y = Math.random() * canvasHeight * .4;
-	else if(!y)
-		this.y = canvasHeight - Math.random() * canvasHeight * .4;
-	else
+	if(y)
 		this.y = y;
+	else{
+		if(rand < .25)
+			this.y = 0;
+		else if(rand <= .5)
+			this.y = canvasHeight;
+		else
+			this.y = canvasHeight * Math.random();
+	}
 	
 	this.dir;
 }
@@ -148,19 +183,35 @@ Person.prototype.goodGuyMove = function(){
 
 Person.prototype.badGuyMove = function(){
 	var rand = Math.random();
-	var goodX = 500; var goodY = 500;
 	
-	if(rand > .75){
-		if(this.x < goodX)
-			this.x += 5;
-		else
-			this.x -= 5;
+	var len = game.goodGuys.length;
+	var min = Math.sqrt(Math.pow(game.goodGuys[0].x - this.x, 2) + Math.pow(game.goodGuys[0].y - this.y, 2));
+	var index = 0;
+	for(var i=1; i < len; i++){
+		var goodGuy = game.goodGuys[i];
+		if(goodGuy.alive == true){
+			var dist = Math.sqrt(Math.pow(goodGuy.x - this.x, 2) + Math.pow(goodGuy.y - this.y, 2));
+			if(dist < min){
+				index = i;
+				min = dist;
+			}
+		}
 	}
-	else if(rand > .5){
-		if(this.y < goodY)
-			this.y += 5;
+	
+	var goodX = game.goodGuys[index].x;
+	var goodY = game.goodGuys[index].y;
+	
+	if(rand > .5){
+		if(this.x < goodX)
+			this.x += 3;
 		else
-			this.y -= 5;
+			this.x -= 3;
+	}
+	else{
+		if(this.y < goodY)
+			this.y += 3;
+		else
+			this.y -= 3;
 	}
 }
 
@@ -182,16 +233,16 @@ Bullet.prototype.bulletMove = function(){
 }
 
 function validMove(person, dir){
-	if(dir == LEFT && person.x > 15)
+	if(dir == LEFT && person.x > 25)
 		return true;
 	
-	if(dir == RIGHT && person.x < (canvasWidth-15))
+	if(dir == RIGHT && person.x < (canvasWidth-25))
 		return true;
 	
-	if(dir == UP && person.y > 15)
+	if(dir == UP && person.y > 25)
 		return true;
 	
-	if(dir == DOWN && person.y < (canvasHeight-15))
+	if(dir == DOWN && person.y < (canvasHeight-25))
 		return true;
 	
 	return false;

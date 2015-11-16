@@ -49,7 +49,7 @@ var DOWN = 3;
 var LEFT = 4;
 var NONE = 5;
 
-var canvasWidth = 900;
+var canvasWidth = 1200;
 var canvasHeight = 700;
 
 function Game(){
@@ -61,8 +61,14 @@ function Game(){
 function Person(name, x, y, id){
 	this.id = id;
 	this.name = name;
+	
+	
 	this.color = colors[colorID];
 	colorID++;
+	if(colorID > 14){
+		colorID = 0;
+	}
+	
 	this.x = x;
 	this.y = y;
 	this.dir = NONE;
@@ -77,17 +83,17 @@ function Bullet(x,y, dir){
 var game = new Game();
 var hostID;
 var colorID = 0;
-var colors = ['#51FF2E', '#FFB71C', '#1CE1FF', '#FFFC40'];
+var colors = ['#51FF2E', '#FFB71C', '#1CE1FF', '#FFFB00', '#16A63C', '#0030CC', '#CC0096', '#CC9C00', '#14ABF7', '#FF742E', '#E873FF', '#000000', '#FFFFFF', '#962D00', '#FFFAB5'];
 
 io.on("connection", function(socket) {
     console.log("A user (" + socket.id + ") connected");
 	
 	socket.on('addPlayer', function(name){
 		var numPlayers = game.goodGuys.length;
-		var row = numPlayers % 4;
-		var col = numPlayers / 4;
+		var row = Math.floor(numPlayers / 5);
+		var col = numPlayers % 5;
 		
-		var player = new Person(name, canvasWidth/3 + row*50, canvasHeight/3 + col*50, socket.id);
+		var player = new Person(name, canvasWidth/3 + col*50, canvasHeight/3 + row*50, socket.id);
 		game.goodGuys.push(player);
 		io.emit('addPlayer', game.goodGuys);
 		
@@ -125,6 +131,10 @@ io.on("connection", function(socket) {
 				break;
 			}
 		}
+	});
+	
+	socket.on('gameOver', function(secs){
+		io.emit('gameOver', secs);
 	});
 });
 

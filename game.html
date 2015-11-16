@@ -15,7 +15,7 @@
 				
 			</div>
 		</div>
-		
+		<div id="status"></div>
 		<script>
 			var socket = io();
 			var host = false;
@@ -46,18 +46,24 @@
 				for(var i=0; i<len; ++i){
 					playerList.append('<div style="color: ' + names[i].color + ';">' + names[i].name + '</div>');
 				}
+				
+				if(host){
+					$('#playerList').append('<button onclick="startGame()" id="button">Start Game</button>');
+				}
 			});
 			
 			socket.on('isHost', function(){
 				console.log("HOST");
 				host = true;
 				game = new Game();
-				$('#canvas').prepend('<button onclick="startGame()" id="button">Start Game</button>');
+				$('#playerList').append('<button onclick="startGame()" id="button">Start Game</button>');
 			});
 			
 			socket.on('clearScreen', function(){
+				$('#signUp').remove();
 				$('#playerList').remove();
 				$('#button').remove();
+				$('html').css('background-color', '#FFFFFF');
 			});
 			
 			socket.on('hostStart', function(players){
@@ -85,6 +91,10 @@
 				clear();
 				background('#222222');
 				drawGame(game);
+			});
+			
+			socket.on('gameOver', function(seconds){
+				$('#status').html('Justin lasted a total of ' + seconds.toFixed(1) + ' seconds with the dinosaurs.');
 			});
 			
 			function keyPressed() {
