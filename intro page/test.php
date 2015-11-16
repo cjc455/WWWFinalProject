@@ -11,17 +11,38 @@ fire:
 http://footagecrate.com/fire.html
 -->
 
+
+
+
+<!--
+Speech:
+Put on you helmet
+Secure your seatbelt
+Grab your floaties . . .
+
+Metacritic: "Flabberguized. This is the key to all the unkown problems in the world"
+Rotten Tomatoes: "This was th . ." The reviewer passed out due to a brain overload of too much awesomeness
+
+Ladies and gentlemen . . .
+Men and women . . .
+Fear shall flea
+The internet shall be flooded with boldness
+
+Soon to be seen on E3, blizzcon, and on steam . . .
+Please watch this trailer:
+
+-->
 <html>
 
 <head>
-<title>Scroll Quest</title>
+<title>Epic Adventure</title>
 
   <style>
   #calmDown{
     background-color:black;
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: .4;
 
   }
 
@@ -48,6 +69,8 @@ http://footagecrate.com/fire.html
     }
     #scroll_objects > div{
       position: absolute;
+      width: 60px;
+      text-align: center;
 
     }
     #box1{
@@ -72,7 +95,7 @@ http://footagecrate.com/fire.html
     }
     .text5, .text6, .text7 {
       color: white;
-      font-size: 60px;
+      font-size: 100px;
       font-family: "Georgia";
     }
     #navbar {
@@ -175,27 +198,31 @@ http://footagecrate.com/fire.html
     new_scroll_object("box2", "box", "yo", 100, 100);
     //  function new_text_object(scroll_object_name, text, start_x_pos, start_y_pos, x_dist) {
     */
-    new_text_object("text1", "One man . . .", -600, 100, 40);
-    add_text_move("text1", "One man . . .", 0, 200, 4, 2, 10);
-    add_text_move("text1", "One man . . .", 350, 550, 0, -10, 0);
-    new_text_object("text2", "One planet . . .", -610, 100, 40);
-    add_text_move("text2", "One planet . . .", 450, 650, 4, 2, 10);
-    add_text_move("text2", "One planet . . .", 900, 1000, 0, -10, 0);
-    new_text_object("text3", "One", -600, 100, 40);
-    add_text_move("text3", "One", 900, 1100, 4, 2, 10);
-    add_text_move("text3", "One", 1250, 1450, 0, -10, 0);
+    new_text_object("text1", "One man . . .", -900, 100, 60);
+    add_text_move("text1", "One man . . .", 0, 300, 4, 0, 5);
+    add_text_move("text1", "One man . . .", 400, 550, 0, 10, 5);
+
+    new_text_object("text2", "One planet . . .", -1100, 300, 60);
+    add_text_move("text2", "One planet . . .", 450, 700, 5, 0, 5);
+    add_text_move("text2", "One planet . . .", 900, 1000, 0, 10, 5);
+
+    new_text_object("text3", "One", -600, 500, 60);
+    add_text_move("text3", "One", 900, 1100, 4, 0, 5);
+    add_text_move("text3", "One", 1250, 1450, 0, 10, 5);
     //add_sound("roar.mp3", 1500);
-    new_text_object("text4", "Trillion Dinosaurs", -800, 100, 40);
-    add_text_move("text4", "Trillion Dinosaurs", 1350, 1550, 4, 2, 10);
-    add_text_move("text4", "Trillion Dinosaurs", 1800, 2000, 0, -10, 0);
+    new_text_object("text4", "Trillion Dinosaurs", -1250, 500, 70);
+    add_text_move("text4", "Trillion Dinosaurs", 1350, 1670, 4, 0, 5);
+    add_text_move("text4", "Trillion Dinosaurs", 1850, 1851, 0, -1000, 5);
 
-    new_text_object("text5", "Justin", -1000, 100, 50);
-    new_text_object("text6", "Vs.", -1000, 100, 50);
-    new_text_object("text7", "Dinosaurs", -1000, 100, 50);
+    new_text_object("text5", "Justin", -1000, 100, 60);
+    new_text_object("text6", "Vs.", -1000, 100, 60);
+    new_text_object("text7", "Dinosaurs", -1000, 100, 60);
 
-    add_text_move("text5", "Justin",    2000, 2001, 1050, 0, 0);
-    add_text_move("text6", "Vs.",       2150, 2151, 1150, 100, 0);
-    add_text_move("text7", "Dinosaurs", 2300, 2301, 1250, 200, 0);
+    add_text_move("text5", "Justin",    2000, 2001, 1250, 0, 0);
+    add_text_move("text6", "Vs.",       2150, 2151, 1350, 100, 0);
+    add_text_move("text7", "Dinosaurs", 2300, 2301, 1450, 200, 0);
+
+
 
     add_sound("epic_music.mp3", 1, .2);
     add_sound("bolt.mp3", 2000, 1);
