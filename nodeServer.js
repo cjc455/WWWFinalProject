@@ -98,7 +98,7 @@ io.on("connection", function(socket) {
 		io.emit('addPlayer', game.goodGuys);
 		
 		
-		if (game.goodGuys.length == 1 || name == "Tyler"){
+		if (name == "Admin"){
 			hostID = socket.id;
             io.to(socket.id).emit("isHost");
 		}
