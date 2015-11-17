@@ -1,6 +1,7 @@
 var canvasWidth;
 var canvasHeight;
 var game;
+var img;
 
 var UP = 1;
 var RIGHT = 2;
@@ -70,7 +71,7 @@ Game.prototype.checkDeath = function(){
 		else{
 			if(i == this.goodGuys.length-1){
 				noLoop();
-				socket.emit('gameOver', waves*10 + ticks/30);
+				socket.emit('gameOver', (waves-1)*10 + ticks/30);
 			}
 		}
 	}

@@ -82,8 +82,10 @@
 			});
 			
 			socket.on('bullet', function(i, dir){
-				var bullet = new Bullet(game.goodGuys[i].x, game.goodGuys[i].y, dir);
-				game.bullets.push(bullet);
+				if(game.goodGuys[i].alive == true){
+					var bullet = new Bullet(game.goodGuys[i].x, game.goodGuys[i].y, dir);
+					game.bullets.push(bullet);
+				}
 			});
 			
 
