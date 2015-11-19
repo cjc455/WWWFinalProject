@@ -71,7 +71,7 @@ Game.prototype.checkDeath = function(){
 		else{
 			if(i == this.goodGuys.length-1){
 				noLoop();
-				socket.emit('gameOver', (waves-1)*10 + ticks/30);
+				socket.emit('gameOver', waves*10 + ticks/30);
 			}
 		}
 	}
@@ -186,13 +186,13 @@ Person.prototype.badGuyMove = function(){
 	var rand = Math.random();
 	
 	var len = game.goodGuys.length;
-	var min = Math.sqrt(Math.pow(game.goodGuys[0].x - this.x, 2) + Math.pow(game.goodGuys[0].y - this.y, 2));
-	var index = 0;
-	for(var i=1; i < len; i++){
+	var min;
+	var index = -1;
+	for(var i=0; i < len; i++){
 		var goodGuy = game.goodGuys[i];
 		if(goodGuy.alive == true){
 			var dist = Math.sqrt(Math.pow(goodGuy.x - this.x, 2) + Math.pow(goodGuy.y - this.y, 2));
-			if(dist < min){
+			if(dist < min || index == -1){
 				index = i;
 				min = dist;
 			}
