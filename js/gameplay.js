@@ -44,9 +44,7 @@ function Game(){
 	this.goodGuys = [];
 	this.bullets = [];
 	
-	for(var i=0; i<10; i++){
-		this.badGuys.push(new Person(null, null, null, null, null));
-	}
+	this.createBadGuys(10);
 }
 
 Game.prototype.createBadGuys = function(num){
@@ -144,7 +142,7 @@ function Person(name, color, x, y, id){
 	this.color = color;
 	this.alive = true;
 	
-	var rand = Math.random()
+	var rand = Math.random();
 	
 	if(x)
 		this.x = x;

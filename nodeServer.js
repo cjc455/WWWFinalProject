@@ -93,15 +93,15 @@ io.on("connection", function(socket) {
 		var row = Math.floor(numPlayers / 5);
 		var col = numPlayers % 5;
 		
-		var player = new Person(name, canvasWidth/3 + col*50, canvasHeight/3 + row*50, socket.id);
-		game.goodGuys.push(player);
-		io.emit('addPlayer', game.goodGuys);
-		
-		
 		if (name == "Admin"){
+			game.goodGuys = [];
 			hostID = socket.id;
             io.to(socket.id).emit("isHost");
 		}
+		
+		var player = new Person(name, canvasWidth/3 + col*50, canvasHeight/3 + row*50, socket.id);
+		game.goodGuys.push(player);
+		io.emit('addPlayer', game.goodGuys);
 	});
 	
 	socket.on('gameStart', function(){
